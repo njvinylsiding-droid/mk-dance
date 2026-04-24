@@ -15,11 +15,13 @@ const BookTrial: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const encodeForm = (data: Record<string, string>) => new URLSearchParams(data).toString();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.firstName || !formData.email || !formData.phone) {
       toast({ title: 'Please fill in all required fields', variant: 'destructive' });
@@ -30,14 +32,36 @@ const BookTrial: React.FC = () => {
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encodeForm({
+          'form-name': 'book-trial',
+          'bot-field': '',
+          ...formData,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Form submission failed with status ${response.status}`);
+      }
+
       setSubmitted(true);
       toast({
         title: 'Your free trial is booked!',
         description: "We'll contact you within 24 hours to confirm your class time.",
       });
-    }, 1500);
+    } catch (error) {
+      console.error('Error submitting trial form:', error);
+      toast({
+        title: 'Submission failed',
+        description: 'Please try again in a minute or call us directly.',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (submitted) {
@@ -121,7 +145,20 @@ const BookTrial: React.FC = () => {
           <div className="bg-white rounded-3xl p-8 shadow-2xl">
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Reserve Your Spot</h3>
             <p className="text-gray-400 text-sm mb-6">Fill out the form and we'll get you dancing in no time.</p>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form
+              name="book-trial"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              onSubmit={handleSubmit}
+              className="space-y-4"
+            >
+              <input type="hidden" name="form-name" value="book-trial" />
+              <p className="hidden">
+                <label>
+                  Do not fill this out if you're human: <input name="bot-field" />
+                </label>
+              </p>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
