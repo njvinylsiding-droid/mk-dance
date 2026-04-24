@@ -99,7 +99,7 @@ const FAQ: React.FC = () => {
           <p className="text-gray-500 mb-6">We'd love to hear from you. Reach out anytime!</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:+19735551234"
+              href="tel:+12019235803"
               className="inline-flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 rounded-xl font-bold text-sm transition-all"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
