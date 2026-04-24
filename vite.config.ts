@@ -6,8 +6,8 @@ import path from "path";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
-    port: 8080,
-    allowedHosts: [".cursorvm.com"],
+    port: 4173,
+    allowedHosts: [".cursorvm.com", ".agent.cvm.dev"],
   },
   plugins: [
     react()
