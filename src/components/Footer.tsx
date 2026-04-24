@@ -165,8 +165,8 @@ const Footer: React.FC = () => {
                 <br />Newark, NJ 07105
               </li>
               <li>
-                <a href="tel:+19735551234" className="text-gray-400 hover:text-amber-400 text-sm transition-colors">
-                  (973) 555-1234
+                <a href="tel:+12019235803" className="text-gray-400 hover:text-amber-400 text-sm transition-colors">
+                  (201) 923-5803
                 </a>
               </li>
               <li>

@@ -70,7 +70,7 @@ const MapSection: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-lg mb-1">Call Us</h3>
-                  <a href="tel:+19735551234" className="text-gray-600 hover:text-red-600 transition-colors text-lg">(973) 555-1234</a>
+                  <a href="tel:+12019235803" className="text-gray-600 hover:text-red-600 transition-colors text-lg">(201) 923-5803</a>
                   <p className="text-gray-400 text-sm mt-1">Mon-Sat: 10am - 9pm | Sun: 10am - 5pm</p>
                 </div>
               </div>

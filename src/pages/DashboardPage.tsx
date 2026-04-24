@@ -156,7 +156,7 @@ const AuthForm: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
                   value={form.phone}
                   onChange={e => setForm({ ...form, phone: e.target.value })}
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-red-500 transition-colors"
-                  placeholder="(973) 555-1234"
+                  placeholder="(201) 923-5803"
                 />
               </div>
             )}
