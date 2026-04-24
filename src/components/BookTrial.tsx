@@ -14,6 +14,7 @@ const BookTrial: React.FC = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const isNetlifyHost = typeof window !== 'undefined' && window.location.hostname.includes('netlify');
 
   const encodeForm = (data: Record<string, string>) => new URLSearchParams(data).toString();
 
@@ -55,8 +56,16 @@ const BookTrial: React.FC = () => {
       });
     } catch (error) {
       console.error('Error submitting trial form:', error);
-      // Fallback to native form submission so Netlify can still capture the entry.
-      formElement.submit();
+      // Fallback to native form submission only on Netlify-hosted URLs.
+      // Preview domains (like Cursor) don't have a backend to accept this POST.
+      if (isNetlifyHost) {
+        formElement.submit();
+        return;
+      }
+      toast({
+        title: 'Preview mode: form backend unavailable',
+        description: 'Form posts only work on your Netlify site. Use your Netlify URL to test submissions.',
+      });
       return;
     } finally {
       setLoading(false);
