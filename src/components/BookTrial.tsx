@@ -21,8 +21,9 @@ const BookTrial: React.FC = () => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formElement = e.currentTarget;
     if (!formData.firstName || !formData.email || !formData.phone) {
       toast({ title: 'Please fill in all required fields', variant: 'destructive' });
       return;
@@ -54,11 +55,9 @@ const BookTrial: React.FC = () => {
       });
     } catch (error) {
       console.error('Error submitting trial form:', error);
-      toast({
-        title: 'Submission failed',
-        description: 'Please try again in a minute or call us directly.',
-        variant: 'destructive',
-      });
+      // Fallback to native form submission so Netlify can still capture the entry.
+      formElement.submit();
+      return;
     } finally {
       setLoading(false);
     }
@@ -148,6 +147,7 @@ const BookTrial: React.FC = () => {
             <form
               name="book-trial"
               method="POST"
+              action="/"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
               onSubmit={handleSubmit}
@@ -167,6 +167,7 @@ const BookTrial: React.FC = () => {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
+                    required
                     className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                     placeholder="Your first name"
                   />
@@ -190,6 +191,7 @@ const BookTrial: React.FC = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                    required
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                   placeholder="you@email.com"
                 />
@@ -201,6 +203,7 @@ const BookTrial: React.FC = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
+                    required
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                   placeholder="(201) 555-0123"
                 />
