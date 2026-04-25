@@ -86,7 +86,7 @@ const MapSection: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-lg mb-1">Email Us</h3>
-                  <a href="mailto:info@mkdancestudio.com" className="text-gray-600 hover:text-red-600 transition-colors">info@mkdancestudio.com</a>
+                  <a href="mailto:manuel_23@live.com" className="text-gray-600 hover:text-red-600 transition-colors">manuel_23@live.com</a>
                   <p className="text-gray-400 text-sm mt-1">We respond within 24 hours</p>
                 </div>
               </div>

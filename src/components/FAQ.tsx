@@ -108,7 +108,7 @@ const FAQ: React.FC = () => {
               Call Us
             </a>
             <a
-              href="mailto:info@mkdancestudio.com"
+              href="mailto:manuel_23@live.com"
               className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

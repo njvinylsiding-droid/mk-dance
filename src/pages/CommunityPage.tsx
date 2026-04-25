@@ -311,7 +311,7 @@ const CommunityFooter: React.FC = () => {
                 <a href="tel:+12019235803" className="text-gray-400 hover:text-amber-400 text-sm transition-colors">(201) 923-5803</a>
               </li>
               <li>
-                <a href="mailto:info@mkdancestudio.com" className="text-gray-400 hover:text-amber-400 text-sm transition-colors">info@mkdancestudio.com</a>
+                <a href="mailto:manuel_23@live.com" className="text-gray-400 hover:text-amber-400 text-sm transition-colors">manuel_23@live.com</a>
               </li>
             </ul>
           </div>
