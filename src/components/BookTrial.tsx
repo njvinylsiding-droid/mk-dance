@@ -14,6 +14,7 @@ const BookTrial: React.FC = () => {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const isNetlifyHost = typeof window !== 'undefined' && window.location.hostname.includes('netlify');
 
   const encodeForm = (data: Record<string, string>) => new URLSearchParams(data).toString();
 
@@ -21,8 +22,9 @@ const BookTrial: React.FC = () => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formElement = e.currentTarget;
     if (!formData.firstName || !formData.email || !formData.phone) {
       toast({ title: 'Please fill in all required fields', variant: 'destructive' });
       return;
@@ -54,11 +56,17 @@ const BookTrial: React.FC = () => {
       });
     } catch (error) {
       console.error('Error submitting trial form:', error);
+      // Fallback to native form submission only on Netlify-hosted URLs.
+      // Preview domains (like Cursor) don't have a backend to accept this POST.
+      if (isNetlifyHost) {
+        formElement.submit();
+        return;
+      }
       toast({
-        title: 'Submission failed',
-        description: 'Please try again in a minute or call us directly.',
-        variant: 'destructive',
+        title: 'Preview mode: form backend unavailable',
+        description: 'Form posts only work on your Netlify site. Use your Netlify URL to test submissions.',
       });
+      return;
     } finally {
       setLoading(false);
     }
@@ -148,6 +156,7 @@ const BookTrial: React.FC = () => {
             <form
               name="book-trial"
               method="POST"
+              action="/"
               data-netlify="true"
               data-netlify-honeypot="bot-field"
               onSubmit={handleSubmit}
@@ -167,6 +176,7 @@ const BookTrial: React.FC = () => {
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
+                    required
                     className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                     placeholder="Your first name"
                   />
@@ -190,6 +200,7 @@ const BookTrial: React.FC = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
+                    required
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                   placeholder="you@email.com"
                 />
@@ -201,6 +212,7 @@ const BookTrial: React.FC = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
+                    required
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
                   placeholder="(201) 555-0123"
                 />

@@ -170,8 +170,8 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="mailto:info@mkdancestudio.com" className="text-gray-400 hover:text-amber-400 text-sm transition-colors">
-                  info@mkdancestudio.com
+                <a href="mailto:manuel_23@live.com" className="text-gray-400 hover:text-amber-400 text-sm transition-colors">
+                  manuel_23@live.com
                 </a>
               </li>
               <li className="text-gray-400 text-sm">
